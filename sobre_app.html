@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreScreve+ | Sobre o Aplicativo</title>
+    <style>
+        :root {
+            --primary-color: #1b2545;
+            --secondary-color: #2E7D96;
+            --background-light: #F3F4FF;
+            --background-dark: #181818;
+            --text-light: #333333;
+            --text-dark: #FFFFFF;
+            --card-light: #F8F9FA;
+            --card-dark: #2C2C2C;
+            --border-light: #E0E0E0;
+            --border-dark: #404040;
+            --success-color: #28A745;
+            --warning-color: #FFC107;
+            --danger-color: #DC3545;
+            --info-color: #17A2B8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            height: 50px;
+        }
+
+        #logoTitulo {
+            width: 250px;
+            height: 70px;
+            margin-top: 0px;
+            position: relative;
+            padding: 0px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: rgba(255,255,255,0.3);
+            font-weight: 500;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .back-btn:hover::before {
+            left: 100%;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .back-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .about-container {
+            margin-top: 30px;
+        }
+
+        .section-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .section-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background: var(--card-light);
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .section-btn {
+            background: var(--card-dark);
+            color: var(--text-dark);
+        }
+
+        .section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .section-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .about-section {
+            background: var(--card-light);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
+            display: none;
+        }
+
+        body.dark-mode .about-section {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+        }
+
+        .about-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .about-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.dark-mode .about-title {
+            color: var(--secondary-color);
+        }
+
+        .about-subtitle {
+            font-size: 18px;
+            color: var(--secondary-color);
+            margin: 20px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-text {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .feature-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .developer-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .developer-card {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+        }
+
+        .developer-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .developer-info {
+            flex: 1;
+        }
+
+        .developer-name {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .developer-name {
+            color: var(--secondary-color);
+        }
+
+        .developer-title {
+            font-size: 16px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .developer-bio {
+            margin-bottom: 15px;
+        }
+
+        .developer-contact {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .contact-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .contact-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Section Content */
+        .section-content {
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-text {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-light);
+            padding: 10px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        body.dark-mode .theme-toggle-container {
+            background: var(--card-dark);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--border-light);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: var(--primary-color);
+        }
+
+        .theme-toggle::before {
+            content: '🌙';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .theme-toggle::before {
+            content: '☀️';
+            transform: translateX(24px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .about-section {
+                padding: 20px;
+            }
+            
+            .about-title {
+                font-size: 22px;
+            }
+            
+            .about-subtitle {
+                font-size: 17px;
+            }
+            
+            .developer-photo {
+                width: 180px;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-btn, .back-btn, .section-btn {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .about-title {
+                font-size: 20px;
+            }
+            
+            .developer-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .developer-contact {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <a href="formulario3.html" class="back-btn" style="text-decoration: none; font-size: 20px;">
+                        <span style="font-size: 18px;"><~</span style="border: none;">
+                        Voltar
+                    </a>
+                    <div class="logo">
+                        <img src="img/logo2.png" alt="PreScreve+" id="logoTitulo">
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn active" data-section="app-info">
+                        ℹ️ Sobre o App
+                    </button>
+                    <button class="nav-btn" data-section="developer-info">
+                        👨‍💻 Desenvolvedor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container about-container">
+        <!-- App Info Section -->
+        <section id="app-info" class="about-section active">
+            <h1 class="about-title">🩺 Sobre o PreScreve+ <span class="version-badge">v1.0.0</span></h1>
+            
+            <div class="section-nav">
+                <button class="section-btn active" data-target="overview-content">📋 Visão Geral</button>
+                <button class="section-btn" data-target="features-content">🌟 Funcionalidades</button>
+                <button class="section-btn" data-target="technical-content">📊 Dados Técnicos</button>
+                <button class="section-btn" data-target="privacy-content">🔒 Privacidade</button>
+                <button class="section-btn" data-target="updates-content">🔄 Atualizações</button>
+            </div>
+            
+            <div id="overview-content" class="section-content active">
+                <p class="about-text">
+                    O PreScreve+ é um aplicativo de prescrição médica inteligente desenvolvido para auxiliar profissionais de saúde na seleção e prescrição de medicamentos de acordo com o Formulário Nacional de Medicamentos (FNM) de Moçambique.
+                </p>
+                
+                <p class="about-text">
+                    Nosso objetivo é simplificar o processo de prescrição, reduzir erros médicos e fornecer informações completas sobre medicamentos de forma rápida e acessível.
+                </p>
+            </div>
+            
+            <div id="features-content" class="section-content">
+                <h2 class="about-subtitle">🌟 Principais Funcionalidades</h2>
+                <ul class="feature-list">
+                    <li>Pesquisa rápida de medicamentos por nome, código FNM ou indicação terapêutica</li>
+                    <li>Filtros avançados por capítulo, nível de prescrição e via de administração</li>
+                    <li>Informações completas sobre cada medicamento, incluindo doses, contraindicações e precauções</li>
+                    <li>Sistema de favoritos para acesso rápido aos medicamentos mais utilizados</li>
+                    <li>Interface intuitiva e responsiva, adaptável a diferentes dispositivos</li>
+                    <li>Modo claro e escuro para melhor conforto visual</li>
+                </ul>
+            </div>
+            
+            <div id="technical-content" class="section-content">
+                <h2 class="about-subtitle">📊 Dados Técnicos</h2>
+                <p class="about-text">
+                    O aplicativo utiliza uma base de dados local com informações completas sobre medicamentos essenciais, organizados de acordo com a estrutura do FNM. Todas as informações são apresentadas de forma clara e organizada, facilitando a consulta rápida durante o atendimento.
+                </p>
+                
+                <p class="about-text">
+                    Tecnologias utilizadas: HTML5, CSS3, JavaScript puro (sem frameworks), armazenamento local (localStorage).
+                </p>
+            </div>
+            
+            <div id="privacy-content" class="section-content">
+                <h2 class="about-subtitle">🔒 Privacidade e Segurança</h2>
+                <p class="about-text">
+                    O PreScreve+ funciona totalmente offline, não requerendo conexão com a internet nem coleta de dados dos usuários. Todas as informações ficam armazenadas localmente no dispositivo do usuário.
+                </p>
+                
+                <p class="about-text">
+                    Não coletamos, armazenamos ou compartilhamos nenhum dado pessoal ou informação sobre o uso do aplicativo.
+                </p>
+            </div>
+            
+            <div id="updates-content" class="section-content">
+                <h2 class="about-subtitle">🔄 Histórico de Atualizações</h2>
+                
+                <h3 class="about-subtitle">Versão 1.0.0 (Atual)</h3>
+                <ul class="feature-list">
+                    <li>Lançamento inicial do aplicativo</li>
+                    <li>Base de dados com medicamentos essenciais</li>
+                    <li>Funcionalidades básicas de pesquisa e filtros</li>
+                    <li>Sistema de favoritos</li>
+                    <li>Interface responsiva</li>
+                    <li>Modo claro e escuro</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Developer Info Section -->
+        <section id="developer-info" class="about-section">
+            <h1 class="about-title">👨‍💻 Sobre o Desenvolvedor</h1>
+            
+            <div class="developer-card">
+                <img src="img/developer.png" alt="Foto do Desenvolvedor" class="developer-photo">
+                
+                <div class="developer-info">
+                    <h2 class="developer-name">Marcos Jeremias Bernardo Birimankhwe</h2>
+                    <p class="developer-title">Estudante do curso: <strong>Técnicos de Medicina Geral e Desenvolvedor de Softwares para a comunidade</strong></p>
+                    
+                    <p class="developer-bio">
+                        Estudante do curso de Técnicos de Medicina Geral em Moçambique com paixão por tecnologia e desenvolvimento de software. Combinando conhecimentos médicos com habilidades de programação, dedica-se a criar soluções tecnológicas que facilitam o trabalho dos profissionais de saúde.
+                    </p>
+                    
+                    <p class="developer-bio">
+                        Desenvolvedor autodidata com experiência em criação de aplicativos web e mobile, com foco em soluções para a área da saúde.
+                    </p>
+                    
+                    <div class="developer-contact">
+                        <a href="mailto:birimankhweDevelop@gmail.com" class="contact-btn">
+                            ✉️ E-mail
+                        </a>
+                        <a href="tel:+258853690042" class="contact-btn">
+                            📞 85 369 0042
+                        </a>
+                        <a href="tel:+258833311040" class="contact-btn">
+                            📞 83 331 1040
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">PreScreve+ © 2023 - Todos os direitos reservados</p>
+        </div>
+    </footer>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container" onclick="toggleTheme()">
+        <span>Modo Escuro</span>
+        <div class="theme-toggle" id="themeToggle"></div>
+    </div>
+    
+    <script>
+        // Aplicar tema salvo
+        const savedTheme = localStorage.getItem('prescreveTheme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Navegação entre seções principais
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const aboutSections = document.querySelectorAll('.about-section');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+                
+                // Atualizar botões ativos
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Mostrar seção correspondente
+                aboutSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Navegação entre conteúdos dentro das seções
+        const sectionBtns = document.querySelectorAll('.section-btn');
+        const sectionContents = document.querySelectorAll('.section-content');
+        
+        sectionBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                
+                // Atualizar botões ativos
+                const parentNav = button.parentElement;
+                parentNav.querySelectorAll('.section-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Mostrar conteúdo correspondente
+                sectionContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetId) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            localStorage.setItem('prescreveTheme', isDark ? 'dark' : 'light');
+        }
+
+        // Detectar tema do sistema
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            if (!localStorage.getItem('prescreveTheme')) {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Escutar mudanças no tema do sistema
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('prescreveTheme')) {
+                if (event.matches) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Inicializar a primeira seção como ativa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Garantir que a primeira seção de conteúdo esteja ativa
+            const firstContent = document.querySelector('.section-content');
+            if (firstContent) {
+                firstContent.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
